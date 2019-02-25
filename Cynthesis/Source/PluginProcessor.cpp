@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-Cynthesis03AudioProcessor::Cynthesis03AudioProcessor()
+CynthesisAudioProcessor::CynthesisAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -26,17 +26,17 @@ Cynthesis03AudioProcessor::Cynthesis03AudioProcessor()
 {
 }
 
-Cynthesis03AudioProcessor::~Cynthesis03AudioProcessor()
+CynthesisAudioProcessor::~CynthesisAudioProcessor()
 {
 }
 
 //==============================================================================
-const String Cynthesis03AudioProcessor::getName() const
+const String CynthesisAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool Cynthesis03AudioProcessor::acceptsMidi() const
+bool CynthesisAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -45,7 +45,7 @@ bool Cynthesis03AudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool Cynthesis03AudioProcessor::producesMidi() const
+bool CynthesisAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -54,7 +54,7 @@ bool Cynthesis03AudioProcessor::producesMidi() const
    #endif
 }
 
-bool Cynthesis03AudioProcessor::isMidiEffect() const
+bool CynthesisAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -63,50 +63,50 @@ bool Cynthesis03AudioProcessor::isMidiEffect() const
    #endif
 }
 
-double Cynthesis03AudioProcessor::getTailLengthSeconds() const
+double CynthesisAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int Cynthesis03AudioProcessor::getNumPrograms()
+int CynthesisAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int Cynthesis03AudioProcessor::getCurrentProgram()
+int CynthesisAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void Cynthesis03AudioProcessor::setCurrentProgram (int index)
+void CynthesisAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String Cynthesis03AudioProcessor::getProgramName (int index)
+const String CynthesisAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void Cynthesis03AudioProcessor::changeProgramName (int index, const String& newName)
+void CynthesisAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void Cynthesis03AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void Cynthesis03AudioProcessor::releaseResources()
+void CynthesisAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool Cynthesis03AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool CynthesisAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -129,7 +129,7 @@ bool Cynthesis03AudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 }
 #endif
 
-void Cynthesis03AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void CynthesisAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -159,25 +159,25 @@ void Cynthesis03AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBu
 }
 
 //==============================================================================
-bool Cynthesis03AudioProcessor::hasEditor() const
+bool CynthesisAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* Cynthesis03AudioProcessor::createEditor()
+AudioProcessorEditor* CynthesisAudioProcessor::createEditor()
 {
-    return new Cynthesis03AudioProcessorEditor (*this);
+    return new CynthesisAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void Cynthesis03AudioProcessor::getStateInformation (MemoryBlock& destData)
+void CynthesisAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void Cynthesis03AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void CynthesisAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -187,5 +187,5 @@ void Cynthesis03AudioProcessor::setStateInformation (const void* data, int sizeI
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new Cynthesis03AudioProcessor();
+    return new CynthesisAudioProcessor();
 }

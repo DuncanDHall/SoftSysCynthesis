@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="hpHMLR" name="Cynthesis03" projectType="audioplug" jucerVersion="5.4.3">
-  <MAINGROUP id="JWfFIk" name="Cynthesis03">
-    <GROUP id="{B44777CB-1887-2787-B7EB-314B43A973C6}" name="Source">
-      <FILE id="ITBreV" name="PluginProcessor.cpp" compile="1" resource="0"
+<JUCERPROJECT id="ewvA4S" name="Cynthesis" projectType="audioplug" jucerVersion="5.4.3">
+  <MAINGROUP id="nDf2br" name="Cynthesis">
+    <GROUP id="{79199013-1D68-E402-23E8-BD8653D67E1B}" name="Source">
+      <FILE id="Upj3jh" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="jJlgCm" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="kIHmCH" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="IlDHlQ" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="W9vTiz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="I1a2zh" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="pGvDzI" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

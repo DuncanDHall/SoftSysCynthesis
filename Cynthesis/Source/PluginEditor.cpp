@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-Cynthesis03AudioProcessorEditor::Cynthesis03AudioProcessorEditor (Cynthesis03AudioProcessor& p)
+CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     // Make sure that before the constructor has finished, you've set the
@@ -20,12 +20,12 @@ Cynthesis03AudioProcessorEditor::Cynthesis03AudioProcessorEditor (Cynthesis03Aud
     setSize (400, 300);
 }
 
-Cynthesis03AudioProcessorEditor::~Cynthesis03AudioProcessorEditor()
+CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void Cynthesis03AudioProcessorEditor::paint (Graphics& g)
+void CynthesisAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
@@ -35,7 +35,7 @@ void Cynthesis03AudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
-void Cynthesis03AudioProcessorEditor::resized()
+void CynthesisAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..

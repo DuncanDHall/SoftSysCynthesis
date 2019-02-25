@@ -15,12 +15,12 @@
 //==============================================================================
 /**
 */
-class Cynthesis03AudioProcessor  : public AudioProcessor
+class CynthesisAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    Cynthesis03AudioProcessor();
-    ~Cynthesis03AudioProcessor();
+    CynthesisAudioProcessor();
+    ~CynthesisAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -57,5 +57,5 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Cynthesis03AudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessor)
 };

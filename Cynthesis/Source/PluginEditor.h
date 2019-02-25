@@ -16,11 +16,11 @@
 //==============================================================================
 /**
 */
-class Cynthesis03AudioProcessorEditor  : public AudioProcessorEditor
+class CynthesisAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    Cynthesis03AudioProcessorEditor (Cynthesis03AudioProcessor&);
-    ~Cynthesis03AudioProcessorEditor();
+    CynthesisAudioProcessorEditor (CynthesisAudioProcessor&);
+    ~CynthesisAudioProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -29,7 +29,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    Cynthesis03AudioProcessor& processor;
+    CynthesisAudioProcessor& processor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Cynthesis03AudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessorEditor)
 };
