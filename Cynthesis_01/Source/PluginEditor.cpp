@@ -17,7 +17,8 @@ Cynthesis_01AudioProcessorEditor::Cynthesis_01AudioProcessorEditor (Cynthesis_01
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    //setSize (400, 283);
+    setSize (600, 600);
 }
 
 Cynthesis_01AudioProcessorEditor::~Cynthesis_01AudioProcessorEditor()
@@ -32,7 +33,7 @@ void Cynthesis_01AudioProcessorEditor::paint (Graphics& g)
 
     g.setColour (Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+    g.drawFittedText ("This is a Cynthesis Plugin!", getLocalBounds(), Justification::centred, 1);
 }
 
 void Cynthesis_01AudioProcessorEditor::resized()
