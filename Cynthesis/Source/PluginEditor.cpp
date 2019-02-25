@@ -1,9 +1,10 @@
 /*
   ==============================================================================
+	Ilya's progress, day #1:
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
+    THIS IS A BASIC THING.
+    
+    PROBABLY A SIMPLE VOLUME SHIFTER
 
   ==============================================================================
 */
