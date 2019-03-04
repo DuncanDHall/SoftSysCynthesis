@@ -18,7 +18,9 @@
 class CynthesisAudioProcessor  : public AudioProcessor
 {
 public:
-    //==============================================================================
+	float noteOnVel; //This is the variable that we will set with the slider.
+	
+	//==============================================================================
     CynthesisAudioProcessor();
     ~CynthesisAudioProcessor();
 
@@ -55,6 +57,7 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+	
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessor)
