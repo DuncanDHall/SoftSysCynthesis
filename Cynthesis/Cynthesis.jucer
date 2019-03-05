@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ewvA4S" name="Cynthesis" projectType="audioplug" jucerVersion="5.4.3">
+<JUCERPROJECT id="ewvA4S" name="Cynthesis" projectType="audioplug" jucerVersion="5.4.3"
+              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="nDf2br" name="Cynthesis">
     <GROUP id="{79199013-1D68-E402-23E8-BD8653D67E1B}" name="Source">
       <FILE id="Upj3jh" name="PluginProcessor.cpp" compile="1" resource="0"
