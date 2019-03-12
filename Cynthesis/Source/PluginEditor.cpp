@@ -33,7 +33,6 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
 	// add the listener to the slider
 	midiVolume.addListener(this);
 
-
 }
 
 CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()

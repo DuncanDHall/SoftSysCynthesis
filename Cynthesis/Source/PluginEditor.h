@@ -16,8 +16,8 @@
 //==============================================================================
 /**
 */
-class CynthesisAudioProcessorEditor  : public AudioProcessorEditor,
-									private Slider::Listener     // [2]
+class CynthesisAudioProcessorEditor :   public AudioProcessorEditor,
+                                        private Slider::Listener     // [2]
 {
 public:
     CynthesisAudioProcessorEditor (CynthesisAudioProcessor&);
