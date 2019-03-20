@@ -11,6 +11,8 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "SynthSound.h"
+#include "SynthVoice.h"
 
 //==============================================================================
 /**
@@ -61,4 +63,11 @@ public:
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessor)
+    
+    Synthesiser synth;
+    SynthesiserVoice *synthVoice;
+    
+    int synthVoiceCount = 5;
+    
+    double lastSampleRate;
 };

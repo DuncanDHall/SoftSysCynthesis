@@ -11,6 +11,9 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include "SynthSound.h"
+#include "SynthVoice.h"
+
 //==============================================================================
 CynthesisAudioProcessor::CynthesisAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -24,6 +27,17 @@ CynthesisAudioProcessor::CynthesisAudioProcessor()
                        )
 #endif
 {
+    // not sure why this clearing is necessary
+    synth.clearVoices();
+    // this makes sense, now we have
+    for (int i = 0; i < synthVoiceCount; i++) {
+        synth.addVoice(new SynthVoice());
+    }
+    
+    // again, more mysterious clearing
+    synth.clearSounds();
+    // add the sounds
+    synth.addSound(new SynthSound());
 }
 
 CynthesisAudioProcessor::~CynthesisAudioProcessor()
@@ -131,29 +145,37 @@ bool CynthesisAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts
 
 void CynthesisAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-	buffer.clear();
-	MidiBuffer processedMidi;
-	int time;
-	MidiMessage m;
-	for (MidiBuffer::Iterator i(midiMessages); i.getNextEvent(m, time);)
-	{
-		if (m.isNoteOn())
-		{
-			uint8 newVel = (uint8)noteOnVel;
-			m = MidiMessage::noteOn(m.getChannel(), m.getNoteNumber(), newVel);
-		}
-		else if (m.isNoteOff())
-		{
-		}
-		else if (m.isAftertouch())
-		{
-		}
-		else if (m.isPitchWheel())
-		{
-		}
-		processedMidi.addEvent(m, time);
-	}
-	midiMessages.swapWith(processedMidi);
+    // TODO: get rid of thise boilerplate if unneeded
+    //    ScopedNoDenormals noDenormals;
+    //    auto totalNumInputChannels  = getTotalNumInputChannels();
+    //    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    //
+    //    // In case we have more outputs than inputs, this code clears any output
+    //    // channels that didn't contain input data, (because these aren't
+    //    // guaranteed to be empty - they may contain garbage).
+    //    // This is here to avoid people getting screaming feedback
+    //    // when they first compile a plugin, but obviously you don't need to keep
+    //    // this code if your algorithm always overwrites all the output channels.
+    //    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    //        buffer.clear (i, 0, buffer.getNumSamples());
+    //
+    //    // This is the place where you'd normally do the guts of your plugin's
+    //    // audio processing...
+    //    // Make sure to reset the state if your inner loop is processing
+    //    // the samples and the outer loop is handling the channels.
+    //    // Alternatively, you can process the samples with the channels
+    //    // interleaved by keeping the same state.
+    //    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    //    {
+    //        auto* channelData = buffer.getWritePointer (channel);
+    //
+    //        // ..do something to the data...
+    //    }
+    
+    // clear the buffer
+    buffer.clear();
+    // delegate midi block handling to the synth
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

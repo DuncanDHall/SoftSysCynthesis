@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="ewvA4S" name="Cynthesis" projectType="audioplug" jucerVersion="5.4.3"
-              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="nDf2br" name="Cynthesis">
     <GROUP id="{79199013-1D68-E402-23E8-BD8653D67E1B}" name="Source">
       <FILE id="Upj3jh" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -11,6 +11,8 @@
       <FILE id="W9vTiz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="pGvDzI" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="waWrpW" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+      <FILE id="IwqoJw" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

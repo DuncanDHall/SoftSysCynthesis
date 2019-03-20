@@ -20,19 +20,18 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
     // editor's size to whatever you need it to be.
     setSize (600, 600);
 
-	// these define the parameters of our slider object
-	midiVolume.setSliderStyle(Slider::LinearBarVertical);
-	midiVolume.setRange(0.0, 127.0, 1.0);
-	midiVolume.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
-	midiVolume.setPopupDisplayEnabled(true, false, this);
-	midiVolume.setTextValueSuffix(" Volume");
-	midiVolume.setValue(100.0);
-	// this function adds the slider to the editor
-	addAndMakeVisible(&midiVolume);
-
-	// add the listener to the slider
-	midiVolume.addListener(this);
-
+//    // these define the parameters of our slider object
+//    midiVolume.setSliderStyle(Slider::LinearBarVertical);
+//    midiVolume.setRange(0.0, 127.0, 1.0);
+//    midiVolume.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
+//    midiVolume.setPopupDisplayEnabled(true, false, this);
+//    midiVolume.setTextValueSuffix(" Volume");
+//    midiVolume.setValue(100.0);
+//    // this function adds the slider to the editor
+//    addAndMakeVisible(&midiVolume);
+//
+//    // add the listener to the slider
+//    midiVolume.addListener(this);
 }
 
 CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
@@ -41,10 +40,10 @@ CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
 
 //==============================================================================
 
-void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
-{
-	processor.noteOnVel = midiVolume.getValue();
-}
+//void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
+//{
+//    processor.noteOnVel = midiVolume.getValue();
+//}
 
 void CynthesisAudioProcessorEditor::paint (Graphics& g)
 {
@@ -62,5 +61,5 @@ void CynthesisAudioProcessorEditor::resized()
     // subcomponents in your editor..
 
 	// sets the position and size of the slider with arguments (x, y, width, height)
-	midiVolume.setBounds(40, 30, 20, getHeight() - 60);
+//    midiVolume.setBounds(40, 30, 20, getHeight() - 60);
 }
