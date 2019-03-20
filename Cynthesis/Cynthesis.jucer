@@ -13,6 +13,8 @@
       <FILE id="pGvDzI" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <FILE id="waWrpW" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
       <FILE id="IwqoJw" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <FILE id="zrEiVw" name="FMLogicUnit.h" compile="0" resource="0" file="Source/FMLogicUnit.h"/>
+      <FILE id="QQvboo" name="Oscilator.h" compile="0" resource="0" file="Source/Oscilator.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

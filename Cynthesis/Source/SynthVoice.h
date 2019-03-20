@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Oscilator.h"
 
 class SynthVoice : public SynthesiserVoice
 {
@@ -34,6 +35,8 @@ public:
         level = velocity;  // note this velocity ranges 0.0 to 1.0
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         std::cout << midiNoteNumber << std::endl;
+        
+        // TODO set oscilator frequencies
     }
     
     //==========================================================================
@@ -47,23 +50,17 @@ public:
     //==========================================================================
     
     void pitchWheelMoved (int newPitchWheelValue)
-    {
-        
-    }
+    {}
     
     //==========================================================================
     
     void controllerMoved (int controllerNumber, int newControllerValue)
-    {
-        
-    }
+    {}
     
     //==========================================================================
     
     void aftertouchChanged (int newAftertouchValue)
-    {
-        
-    }
+    {}
     
     //==========================================================================
     
@@ -75,6 +72,8 @@ public:
                 // output should be scaled -1.0 to 1.0
                 auto currentSample = (float) ((random.nextFloat() * 0.1 - 0.05) * level);
                 outputBuffer.addSample(channel, startSample, currentSample);
+                
+                //TODO – use getSample()
             }
             startSample++;
         }
@@ -83,8 +82,25 @@ public:
     //==========================================================================
     
 private:
+    // calculates the correct sample value to write
+    float getSample ()
+    {
+        // TODO: do the FM synthesis math here
+        return 0.0;
+    }
+
+    //==========================================================================
+                     
     double level = 0;
     double frequency;
     
     Random random;
+    
+    
+    // TODO – these might need to be initialized differently
+    Oscilator osc1;
+    Oscilator osc2;
+    Oscilator osc3;
+    
+    Oscilator lfo;
 };
