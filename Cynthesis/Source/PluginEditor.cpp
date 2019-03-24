@@ -20,18 +20,16 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
     // editor's size to whatever you need it to be.
     setSize (600, 600);
 
-//    // these define the parameters of our slider object
-//    midiVolume.setSliderStyle(Slider::LinearBarVertical);
-//    midiVolume.setRange(0.0, 127.0, 1.0);
-//    midiVolume.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
-//    midiVolume.setPopupDisplayEnabled(true, false, this);
-//    midiVolume.setTextValueSuffix(" Volume");
-//    midiVolume.setValue(100.0);
-//    // this function adds the slider to the editor
-//    addAndMakeVisible(&midiVolume);
-//
-//    // add the listener to the slider
-//    midiVolume.addListener(this);
+
+    // gainSlider config //
+    gainSlider.setSliderStyle(Slider::LinearBarVertical);
+    gainSlider.setRange(0, 1.0, 0.02);
+    gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 90, 0);
+    gainSlider.setPopupDisplayEnabled(true, false, this);
+    gainSlider.setTextValueSuffix(" Gain");
+    gainSlider.setValue(1.0);
+    addAndMakeVisible(&gainSlider);
+    gainSlider.addListener(this);
 }
 
 CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
@@ -40,10 +38,12 @@ CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
 
 //==============================================================================
 
-//void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
-//{
-//    processor.noteOnVel = midiVolume.getValue();
-//}
+void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
+{
+    if (slider == &gainSlider) {
+        processor.setGain(slider->getValue());
+    }
+}
 
 void CynthesisAudioProcessorEditor::paint (Graphics& g)
 {
@@ -61,5 +61,13 @@ void CynthesisAudioProcessorEditor::resized()
     // subcomponents in your editor..
 
 	// sets the position and size of the slider with arguments (x, y, width, height)
-//    midiVolume.setBounds(40, 30, 20, getHeight() - 60);
+	int vertPadding = 30;
+	int horizPadding = 30;
+	int sliderHeight = getHeight() - 2*vertPadding;
+	int sliderWidth = 20;
+	int horizSpacing = 10;
+	gainSlider.setBounds(
+	        getWidth() - sliderWidth - horizPadding -40, vertPadding,
+	        sliderWidth, sliderHeight
+	        );
 }
