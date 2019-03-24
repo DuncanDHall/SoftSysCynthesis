@@ -35,6 +35,12 @@ private:
     // access the processor object that created it.
     CynthesisAudioProcessor& processor;
 
+    // Styling
+    Font labelFont = Font(20.0f, Font::plain);
+
+    // components
     Slider gainSlider;
+    Label gainLabel;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessorEditor)
 };

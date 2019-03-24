@@ -20,16 +20,25 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
     // editor's size to whatever you need it to be.
     setSize (600, 600);
 
-
     // gainSlider config //
+    addAndMakeVisible(&gainSlider);
     gainSlider.setSliderStyle(Slider::LinearBarVertical);
     gainSlider.setRange(0, 1.0, 0.02);
     gainSlider.setTextBoxStyle(Slider::NoTextBox, true, 90, 0);
     gainSlider.setPopupDisplayEnabled(true, false, this);
     gainSlider.setTextValueSuffix(" Gain");
     gainSlider.setValue(1.0);
-    addAndMakeVisible(&gainSlider);
     gainSlider.addListener(this);
+
+    // gainLabel
+    addAndMakeVisible(&gainLabel);
+    gainLabel.setText("Gain", dontSendNotification);
+    gainLabel.setFont(labelFont);
+    gainLabel.setColour(Label::textColourId, Colours::white);
+    gainLabel.setJustificationType(Justification::centred);
+    gainLabel.setVisible(true);
+
+    resized();
 }
 
 CynthesisAudioProcessorEditor::~CynthesisAudioProcessorEditor()
@@ -51,7 +60,8 @@ void CynthesisAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
     g.setColour (Colours::white);
-    g.setFont (30.0f);
+    g.setFont (16.0f);
+
     g.drawFittedText ("Midi Volume by Cynthesis!", getLocalBounds(), Justification::centred, 1);
 }
 
@@ -60,14 +70,27 @@ void CynthesisAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-	// sets the position and size of the slider with arguments (x, y, width, height)
-	int vertPadding = 30;
-	int horizPadding = 30;
-	int sliderHeight = getHeight() - 2*vertPadding;
-	int sliderWidth = 20;
-	int horizSpacing = 10;
-	gainSlider.setBounds(
-	        getWidth() - sliderWidth - horizPadding -40, vertPadding,
-	        sliderWidth, sliderHeight
-	        );
+    int fontSize = (int) labelFont.getHeight();
+    int textMargin = 10;
+    int vertPadding = 30;
+    int horizPadding = 30;
+    int sliderHeight = getHeight() - 2*vertPadding - 2*textMargin - fontSize;
+    int sliderWidth = 20;
+    int horizSpacing = 10;
+
+    // temporary variables for intermediate computations
+    int x, y, w, h;
+
+    // gainSlider
+    x = getWidth() - horizPadding - sliderWidth;
+    y = vertPadding + 2*textMargin + fontSize;
+	gainSlider.setBounds(x, y, sliderWidth, sliderHeight);
+
+	// gainLabel
+//	gainLabel.attachToComponent(&gainSlider, false);
+	w = labelFont.getStringWidth(gainLabel.getText());
+	h = fontSize;
+	x = gainSlider.getBounds().getCentreX() - w/2;
+	y = gainSlider.getBounds().getY() - textMargin - fontSize;
+	gainLabel.setBounds(x, y, w, h);
 }
