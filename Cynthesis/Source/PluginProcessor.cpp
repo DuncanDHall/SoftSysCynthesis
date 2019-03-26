@@ -205,6 +205,16 @@ void CynthesisAudioProcessor::setStateInformation (const void* data, int sizeInB
     // whose contents will have been created by the getStateInformation() call.
 }
 
+void CynthesisAudioProcessor::setGain(double gain)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        SynthVoice *sv = dynamic_cast<SynthVoice *>(synth.getVoice(i));
+        if (sv) {
+            sv->setGain(gain);
+        }
+    }
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

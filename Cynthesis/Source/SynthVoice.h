@@ -32,7 +32,7 @@ public:
     
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitcchWheelPosition)
     {
-        level = velocity;  // note this velocity ranges 0.0 to 1.0
+        this->velocity = velocity;  // note this velocity ranges 0.0 to 1.0
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         std::cout << midiNoteNumber << std::endl;
         
@@ -43,7 +43,7 @@ public:
     
     void stopNote (float velocity, bool allowTailOff)
     {
-        level = 0;
+        this->velocity = 0;
         clearCurrentNote();
     }
     
@@ -70,9 +70,10 @@ public:
             for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
                 // currently writing random samples
                 // output should be scaled -1.0 to 1.0
-                auto currentSample = (float) ((random.nextFloat() * 0.1 - 0.05) * level);
-                outputBuffer.addSample(channel, startSample, currentSample);
-                
+//                auto currentSample = (float) ((random.nextFloat() * 0.1 - 0.05) * velocity);
+//                outputBuffer.addSample(channel, startSample, currentSample);
+                outputBuffer.addSample(channel, startSample, getSample());
+
                 //TODO – use getSample()
             }
             startSample++;
@@ -80,18 +81,27 @@ public:
     }
     
     //==========================================================================
-    
+    // CUSTOM
+    //==========================================================================
+    void setGain(double gain) {
+        this->gain = gain;
+    }
+
 private:
     // calculates the correct sample value to write
+    // output should be scaled -1.0 to 1.0
     float getSample ()
     {
         // TODO: do the FM synthesis math here
-        return 0.0;
+        double signal = random.nextFloat() - 0.5;
+        signal = signal * velocity * gain;
+        return (float) signal;
     }
 
     //==========================================================================
                      
-    double level = 0;
+    double velocity = 0;
+    double gain = 1.0;
     double frequency;
     
     Random random;
