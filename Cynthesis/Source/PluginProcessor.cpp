@@ -34,6 +34,10 @@ CynthesisAudioProcessor::CynthesisAudioProcessor()
         synth.addVoice(new SynthVoice());
     }
     
+
+	string strMytestString("hello world");
+	cout << strMytestString;
+
     // again, more mysterious clearing
     synth.clearSounds();
     // add the sounds

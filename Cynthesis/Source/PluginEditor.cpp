@@ -12,6 +12,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+//#include "stdafx.h"
+#include <string>
+#include <iostream>
+
 //==============================================================================
 CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
@@ -25,7 +29,6 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
     titleLabel.setText("Cynthesis", dontSendNotification);
     titleLabel.setFont(titleFont);
     titleLabel.setJustificationType(Justification::left);
-
 
     // gainLabel
     addAndMakeVisible(&gainLabel);

@@ -12,6 +12,10 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Oscilator.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 class SynthVoice : public SynthesiserVoice
 {
@@ -36,7 +40,11 @@ public:
         frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         std::cout << midiNoteNumber << std::endl;
         
-        // TODO set oscilator frequencies
+		//set oscilator frequencies
+		//cout << osc1.frequency << " is divisible by" << endl;
+		osc1.frequency = frequency;
+		//osc2.frequency = frequency;
+
     }
     
     //==========================================================================
@@ -72,11 +80,9 @@ public:
                 // output should be scaled -1.0 to 1.0
 //                auto currentSample = (float) ((random.nextFloat() * 0.1 - 0.05) * velocity);
 //                outputBuffer.addSample(channel, startSample, currentSample);
-                outputBuffer.addSample(channel, startSample, getSample());
-
-                //TODO – use getSample()
-            }
-            startSample++;
+				  outputBuffer.addSample(channel, startSample, getSample(startSample)); //startSample is current sample)
+			}
+			startSample++; //increments sample
         }
     }
     
@@ -88,15 +94,25 @@ public:
     }
 
 private:
-    // calculates the correct sample value to write
-    // output should be scaled -1.0 to 1.0
-    float getSample ()
-    {
-        // TODO: do the FM synthesis math here
-        double signal = random.nextFloat() - 0.5;
-        signal = signal * velocity * gain;
-        return (float) signal;
-    }
+	// calculates the correct sample value to write
+	// takes in: currentSample, analogous to time variable (scaled by sample rate) 
+	// output should be scaled -1.0 to 1.0
+	float getSample(int currentSample)
+	{
+		double rate = getSampleRate(); //get rate from SynthesiserVoice
+		double time = currentSample / rate; //current sample divided by sample rate will give time in seconds
+
+		//wants to get current values from each oscillator 
+
+		// TODO: do the FM synthesis math here
+		float amplitude_1 = osc1.getSample(time); //updating from oscillator: what is its current value
+		//float amplitude_2 = osc2.getSample(time); //same
+
+		float signal = (amplitude_1) * velocity * gain; //scaling by velocity and gain
+		//float signal = (amplitude_1 + amplitude_2)* velocity * gain; //scaling by velocity and gain
+
+		return signal;
+	}
 
     //==========================================================================
                      
@@ -110,7 +126,7 @@ private:
     // TODO – these might need to be initialized differently
     Oscilator osc1;
     Oscilator osc2;
-    Oscilator osc3;
+
     
     Oscilator lfo;
 };
