@@ -34,6 +34,10 @@ CynthesisAudioProcessor::CynthesisAudioProcessor()
         synth.addVoice(new SynthVoice());
     }
     
+
+	string strMytestString("hello world");
+	cout << strMytestString;
+
     // again, more mysterious clearing
     synth.clearSounds();
     // add the sounds
@@ -113,6 +117,9 @@ void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
     // initialisation that you need..
 	lastSampleRate = sampleRate;
 	synth.setCurrentPlaybackSampleRate(lastSampleRate); //passes sample rate to synthesizer object
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+        synth.getVoice(i)->setCurrentPlaybackSampleRate(lastSampleRate);
+    }
 }
 
 void CynthesisAudioProcessor::releaseResources()
@@ -204,6 +211,17 @@ void CynthesisAudioProcessor::setStateInformation (const void* data, int sizeInB
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
+
+void CynthesisAudioProcessor::setGain(double gain)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        SynthVoice *sv = dynamic_cast<SynthVoice *>(synth.getVoice(i));
+        if (sv) {
+            sv->setGain(gain);
+        }
+    }
+}
+
 
 //==============================================================================
 // This creates new instances of the plugin..

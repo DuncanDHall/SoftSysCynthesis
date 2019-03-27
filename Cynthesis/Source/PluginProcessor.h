@@ -20,13 +20,14 @@
 class CynthesisAudioProcessor  : public AudioProcessor
 {
 public:
-	float noteOnVel; //This is the variable that we will set with the slider.
+	double noteOnVel = 100.0; //This is the variable that we will set with the
+	// slider.
 	
-	//==============================================================================
+	//==========================================================================
     CynthesisAudioProcessor();
     ~CynthesisAudioProcessor();
 
-    //==============================================================================
+    //==========================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
@@ -36,11 +37,11 @@ public:
 
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
 
-    //==============================================================================
+    //==========================================================================
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
 
-    //==============================================================================
+    //==========================================================================
     const String getName() const override;
 
     bool acceptsMidi() const override;
@@ -48,24 +49,29 @@ public:
     bool isMidiEffect() const override;
     double getTailLengthSeconds() const override;
 
-    //==============================================================================
+    //==========================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
     const String getProgramName (int index) override;
     void changeProgramName (int index, const String& newName) override;
 
-    //==============================================================================
+    //==========================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-	
+    //==========================================================================
+    // CUSTOM
+    //==========================================================================
+    Synthesiser synth;
+
+    void setGain(double gain);
+
 private:
-    //==============================================================================
+    //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessor)
     
-    Synthesiser synth;
-    SynthesiserVoice *synthVoice;
+    SynthVoice *synthVoice;
     
     int synthVoiceCount = 5;
     
