@@ -63,14 +63,14 @@ public:
     //==========================================================================
     // CUSTOM
     //==========================================================================
+    Synthesiser synth;
+
     void setGain(double gain);
 
-	
 private:
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CynthesisAudioProcessor)
     
-    Synthesiser synth;
     SynthVoice *synthVoice;
     
     int synthVoiceCount = 5;
