@@ -34,6 +34,10 @@ CynthesisAudioProcessor::CynthesisAudioProcessor()
         synth.addVoice(new SynthVoice());
     }
     
+
+	string strMytestString("hello world");
+	cout << strMytestString;
+
     // again, more mysterious clearing
     synth.clearSounds();
     // add the sounds
@@ -113,6 +117,9 @@ void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
     // initialisation that you need..
 	lastSampleRate = sampleRate;
 	synth.setCurrentPlaybackSampleRate(lastSampleRate); //passes sample rate to synthesizer object
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+        synth.getVoice(i)->setCurrentPlaybackSampleRate(lastSampleRate);
+    }
 }
 
 void CynthesisAudioProcessor::releaseResources()
@@ -214,6 +221,7 @@ void CynthesisAudioProcessor::setGain(double gain)
         }
     }
 }
+
 
 //==============================================================================
 // This creates new instances of the plugin..
