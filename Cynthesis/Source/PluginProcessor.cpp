@@ -117,6 +117,9 @@ void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
     // initialisation that you need..
 	lastSampleRate = sampleRate;
 	synth.setCurrentPlaybackSampleRate(lastSampleRate); //passes sample rate to synthesizer object
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+        synth.getVoice(i)->setCurrentPlaybackSampleRate(lastSampleRate);
+    }
 }
 
 void CynthesisAudioProcessor::releaseResources()

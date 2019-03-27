@@ -37,13 +37,14 @@ public:
 	void startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitcchWheelPosition)
 	{
 		this->velocity = velocity;  // note this velocity ranges 0.0 to 1.0
-		frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+		float frequency = (float) MidiMessage::getMidiNoteInHertz(midiNoteNumber);
 		std::cout << midiNoteNumber << std::endl;
 
 		//set oscilator frequencies
-		//cout << osc1.frequency << " is divisible by" << endl;
+//		cout << osc1.frequency << " is divisible by" << endl;
+		std::cout << frequency << std::endl;
 		osc1.frequency = frequency;
-		//osc2.frequency = frequency;
+		osc2.frequency = frequency;
 
 	}
 
@@ -76,11 +77,7 @@ public:
 	{
 		for (int sample = 0; sample < numSamples; ++sample) {
 			for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
-				// currently writing random samples
-				// output should be scaled -1.0 to 1.0
-//                auto currentSample = (float) ((random.nextFloat() * 0.1 - 0.05) * velocity);
-//                outputBuffer.addSample(channel, startSample, currentSample);
-				outputBuffer.addSample(channel, startSample, getSample(startSample)); //startSample is current sample)
+				outputBuffer.addSample(channel, startSample, getSample()); //startSample is current sample)
 			}
 			startSample++; //increments sample
 		}
@@ -99,32 +96,38 @@ public:
 		this->gain = gain;
 	}
 
+	void setCurrentPlaybackSampleRate (double newRate)
+	{
+		osc1.sampleRate = newRate;
+		osc2.sampleRate = newRate;
+		lfo.sampleRate = newRate;
+	}
+
+
 private:
 	// calculates the correct sample value to write
 	// takes in: currentSample, analogous to time variable (scaled by sample rate) 
 	// output should be scaled -1.0 to 1.0
-	float getSample(int currentSample)
+	float getSample()
 	{
-		double rate = getSampleRate(); //get rate from SynthesiserVoice
-		double time = currentSample / rate; //current sample divided by sample rate will give time in seconds
+		//wants to get current values from each oscillator
 
-		//wants to get current values from each oscillator 
+		float amplitude_1 = osc1.getSample(0.0); //updating from oscillator: what is its current value
+		float amplitude_2 = osc2.getSample(lfo.getSample(0.0)); //same
 
-		// TODO: do the FM synthesis math here
-		float amplitude_1 = osc1.getSample(time); //updating from oscillator: what is its current value
-		//float amplitude_2 = osc2.getSample(time); //same
+		float signal = (amplitude_1 + amplitude_2) * velocity * gain; //scaling by velocity and gain
 
-		float signal = (amplitude_1)* velocity * gain; //scaling by velocity and gain
-		//float signal = (amplitude_1 + amplitude_2)* velocity * gain; //scaling by velocity and gain
+//		if (velocity > 0) {
+//			std::cout << signal << std::endl;
+//		}
 
 		return signal;
 	}
 
 	//==========================================================================
 
-	double velocity = 0;
+	double velocity = 0.0;
 	double gain = 1.0;
-	double frequency;
 
 	Random random;
 

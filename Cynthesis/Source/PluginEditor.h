@@ -47,6 +47,7 @@ private:
     Label gainLabel;
     Slider gainSlider;
 
+
     //////////
     // Osc1 //
     //////////

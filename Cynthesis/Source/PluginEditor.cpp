@@ -141,7 +141,7 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
     phaseSliderOsc2.setTextBoxStyle(Slider::NoTextBox, true, 90, 0);
     phaseSliderOsc2.setPopupDisplayEnabled(true, true, this);
     phaseSliderOsc2.setTextValueSuffix(" phase");
-    phaseSliderOsc2.setValue(0.0);
+    phaseSliderOsc2.setValue(0.2);
     phaseSliderOsc2.addListener(this);
 
     // semitonesLabelOsc2
@@ -232,39 +232,45 @@ void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
         SynthVoice *voice = dynamic_cast<SynthVoice *>(processor.synth.getVoice(i));
 
         if (slider == &phaseSliderOsc1) {
-            voice->osc1.phase = slider->getValue();
+            voice->osc1.phase = (float) slider->getValue();
             std::cout << "osc1 phase: " << slider->getValue() << std::endl;
         }
         else if (slider == &semitonesSliderOsc1) {
-            voice->osc1.semitones = slider->getValue();
+            voice->osc1.semitones = (int) slider->getValue();
             std::cout << "osc1 semitones: " << slider->getValue() << std::endl;
         }
         else if (slider == &centsSliderOsc1) {
-            voice->osc1.cents = slider->getValue();
+            voice->osc1.cents = (int) slider->getValue();
             std::cout << "osc1 cents: " << slider->getValue() << std::endl;
         }
         else if (slider == &volumeSliderOsc1) {
-            voice->osc1.volume = slider->getValue();
+            voice->osc1.volume = (float) slider->getValue();
             std::cout << "osc1 volume: " << slider->getValue() << std::endl;
         }
         else if (slider == &phaseSliderOsc2) {
-            voice->osc2.phase = slider->getValue();
+            voice->osc2.phase = (float) slider->getValue();
             std::cout << "osc2 phase: " << slider->getValue() << std::endl;
         }
         else if (slider == &semitonesSliderOsc2) {
-            voice->osc2.semitones = slider->getValue();
+            voice->osc2.semitones = (int) slider->getValue();
             std::cout << "osc2 semitones: " << slider->getValue() << std::endl;
         }
         else if (slider == &centsSliderOsc2) {
-            voice->osc2.cents = slider->getValue();
+            voice->osc2.cents = (int) slider->getValue();
             std::cout << "osc2 cents: " << slider->getValue() << std::endl;
         }
-        else if (slider == &volumeSliderOsc1) {
-            voice->osc2.volume = slider->getValue();
+        else if (slider == &volumeSliderOsc2) {
+            voice->osc2.volume = (float) slider->getValue();
             std::cout << "osc2 volume: " << slider->getValue() << std::endl;
         }
         else if (slider == &frequencySliderLFO) {
             // TODO implement changes to LFO
+            voice->lfo.frequency = (float) slider->getValue();
+            voice->osc2.phase = 0.0;
+            voice->osc2.semitones = 0;
+            voice->osc2.cents = 0;
+            voice->osc2.volume = 0.5;
+
             std::cout << "PLACEHOLDER lfo frequency: " << slider->getValue() << std::endl;
         }
         else if (slider == &gainSlider) {
