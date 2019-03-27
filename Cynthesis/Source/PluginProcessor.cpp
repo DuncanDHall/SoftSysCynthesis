@@ -215,6 +215,7 @@ void CynthesisAudioProcessor::setGain(double gain)
     }
 }
 
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

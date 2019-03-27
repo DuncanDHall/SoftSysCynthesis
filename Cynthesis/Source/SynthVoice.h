@@ -83,6 +83,12 @@ public:
     //==========================================================================
     // CUSTOM
     //==========================================================================
+
+    Oscilator osc1;
+    Oscilator osc2;
+
+    Oscilator lfo;
+
     void setGain(double gain) {
         this->gain = gain;
     }
@@ -105,12 +111,5 @@ private:
     double frequency;
     
     Random random;
-    
-    
-    // TODO – these might need to be initialized differently
-    Oscilator osc1;
-    Oscilator osc2;
-    Oscilator osc3;
-    
-    Oscilator lfo;
+
 };
