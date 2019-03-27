@@ -133,6 +133,8 @@ void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
 
 #### SynthVoice
 
+This is the class that does the synthesis. There are an arbitrary number of these voices which can are automatically assigned to a key when pressed, and then unassigned when released.
+
 ```
 void startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitcchWheelPosition)
 {
@@ -144,10 +146,39 @@ void startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int 
 	osc2.frequency = frequency;
 
 }
+
+void stopNote(float velocity, bool allowTailOff)
+{
+	this->velocity = 0;
+	clearCurrentNote();
+}
 ```
 
-#### Oscilator
+This is where the synthesis comes in. Right now we have a basic implementation where each oscillator is queried for it's current value, these are summed, and sent to the calling function and written directly to an output buffer. Note that the LFO is also queried and it's value sent to second oscillator for frequency modulation (FM synthesis, woohoo!).
 
+```
+float getSample()
+{
+	float amplitude_1 = osc1.getSample(0.0); //updating from oscillator: what is its current value
+	float amplitude_2 = osc2.getSample(lfo.getSample(0.0)); //same
+
+	float signal = (amplitude_1 + amplitude_2) * velocity * gain; //scaling by velocity and gain
+
+	return signal;
+}
+```
+
+#### Oscillator
+
+The `Oscillator` class is very simple with a few parameters which map to the gui and a single public method. Each `SynthVoice` has two main oscillator instances plus a third as an LFO.
+
+```
+float getSample(double lfoState) {
+	realFrequency = frequency * pow(2, (semitones + cents/100 + lfoState)/12.0);
+	currentAngle += realFrequency * MathConstants<double>::twoPi / sampleRate;
+	return (float) sin(currentAngle + phase * MathConstants<double>::twoPi) * volume;
+}
+```
 
 ## Reflection
 
