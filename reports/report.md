@@ -23,7 +23,7 @@ We found the Juce (a framework for developing VST plugins) tutorials particularl
 
 ## Accomplishments: Cynthesis Plugin
 
-[PICTURE OF CYNTHESIS PLUGIN]
+![](/Users/duncanhall/Library/Mobile Documents/com~apple~CloudDocs/Documents/Classes/softsys/SoftSysCynthesis/reports/CynthesisPluginSnip.PNG)
 
 We were able to create a standalone plugin with a gui that integrates with a DAW! We decided to have our final Cynthesis plugin takes input from a midi keyboard and generates a synth sound using two sine wave oscillators. The output sound can be modulated (for each oscillator) using the phase, semitones, cents and volume knobs. The final output amplitude is controlled by the velocity (intensity) of midi key presses, the volume knob and master gain bar.
 
@@ -179,6 +179,10 @@ float getSample(double lfoState) {
 	return (float) sin(currentAngle + phase * MathConstants<double>::twoPi) * volume;
 }
 ```
+
+## How To
+
+If you'd like to try out our plugin, there are two standalone applications included in the repository (one for windows, one for mac). To use them you will need to plug in a MIDI source, then open the application. Click options > Audio/MIDI Settings then select your MIDI source from the list of Active MIDI inputs.
 
 ## Reflection
 
