@@ -1,4 +1,4 @@
-# Cynthesis: Developing an Synthesizer Plugin in C++ 
+# Cynthesis: Developing a Synthesizer Plugin in C++ 
 *Ilya Besancon and Duncan Hall*
 March 26th 2019
 
