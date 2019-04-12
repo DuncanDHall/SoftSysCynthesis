@@ -34,7 +34,7 @@ The overall architecture of the application source code consists of an editor, p
 #### PluginEditor
 This class handles the layout of the plugin’s gui, as well as passing actions taken with the gui along to `PluginProcessor`. Contains declarations for all gui elements and the an instance of the `PluginProcessor`. Here’s some examples of the sort of code contained here:
 
-```
+```C++
 CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
@@ -61,7 +61,7 @@ CynthesisAudioProcessorEditor::CynthesisAudioProcessorEditor (CynthesisAudioProc
 
 *Called on slider change:*
 
-```
+```C++
 void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
     // this code structure is optimized for readability, not performance
@@ -84,7 +84,7 @@ void CynthesisAudioProcessorEditor::sliderValueChanged(Slider* slider)
 
 *Called to initialize the gui and on resize, hence the bounds-setting:*
 
-```
+```C++
 void CynthesisAudioProcessorEditor::resized()
 {
 // ...
@@ -107,7 +107,7 @@ void CynthesisAudioProcessorEditor::resized()
 
 Contains a Juce Synthesiser object (builtin) inside of which are all the `SynthVoices`. This class mostly contains setup code.
 
-```
+```C++
 CynthesisAudioProcessor::CynthesisAudioProcessor()
 {
     synth.clearVoices();
@@ -135,7 +135,7 @@ void CynthesisAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
 
 This is the class that does the synthesis. There are an arbitrary number of these voices which can are automatically assigned to a key when pressed, and then unassigned when released.
 
-```
+```C++
 void startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitcchWheelPosition)
 {
 	this->velocity = velocity;  // note this velocity ranges 0.0 to 1.0
@@ -156,7 +156,7 @@ void stopNote(float velocity, bool allowTailOff)
 
 This is where the synthesis comes in. Right now we have a basic implementation where each oscillator is queried for it's current value, these are summed, and sent to the calling function and written directly to an output buffer. Note that the LFO is also queried and it's value sent to second oscillator for frequency modulation (FM synthesis, woohoo!).
 
-```
+```C++
 float getSample()
 {
 	float amplitude_1 = osc1.getSample(0.0); //updating from oscillator: what is its current value
@@ -172,7 +172,7 @@ float getSample()
 
 The `Oscillator` class is very simple with a few parameters which map to the gui and a single public method. Each `SynthVoice` has two main oscillator instances plus a third as an LFO.
 
-```
+```C++
 float getSample(double lfoState) {
 	realFrequency = frequency * pow(2, (semitones + cents/100 + lfoState)/12.0);
 	currentAngle += realFrequency * MathConstants<double>::twoPi / sampleRate;
